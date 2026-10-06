@@ -1,0 +1,38 @@
+.menu-page {
+  min-height: calc(100vh - 70px);
+  padding: 50px 10%;
+  background: #f8f9fa;
+}
+
+.menu-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.menu-header h1 {
+  font-size: 38px;
+  margin-bottom: 10px;
+}
+
+.menu-header p {
+  color: #666666;
+  font-size: 17px;
+}
+
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+@media (max-width: 900px) {
+  .food-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .food-grid {
+    grid-template-columns: 1fr;
+  }
+}
