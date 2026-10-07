@@ -8,12 +8,15 @@ function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -22,9 +25,41 @@ function Register() {
     }
 
     setError("");
+    setLoading(true);
 
-    // Temporary frontend registration
-    navigate("/login");
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            password,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message || "Registration failed");
+        setLoading(false);
+        return;
+      }
+
+      alert("Account created successfully!");
+
+      navigate("/login");
+    } catch (error) {
+      console.error("Registration error:", error);
+      setError("Unable to connect to server. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -39,22 +74,28 @@ function Register() {
         </div>
 
         <form onSubmit={handleRegister}>
+          {/* Full Name */}
           <div className="form-group">
             <label>Full Name</label>
 
             <input
               type="text"
               placeholder="Enter your full name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               required
             />
           </div>
 
+          {/* Email */}
           <div className="form-group">
             <label>Email</label>
 
             <input
               type="email"
               placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
@@ -109,8 +150,8 @@ function Register() {
 
           {error && <p className="password-error">{error}</p>}
 
-          <button type="submit" className="auth-btn">
-            Create Account
+          <button type="submit" className="auth-btn" disabled={loading}>
+            {loading ? "Creating Account..." : "Create Account"}
           </button>
         </form>
 
