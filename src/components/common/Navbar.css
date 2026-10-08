@@ -34,3 +34,18 @@
   background-color: #ff6b35;
   color: white !important;
 }
+
+.logout-btn {
+  background: #ff6b35;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.logout-btn:hover {
+  background: #e85a2a;
+}
