@@ -1,37 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useAuth } from "../../context/AuthContext";
 import "./Navbar.css";
 
 function Navbar() {
   const navigate = useNavigate();
 
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    !!localStorage.getItem("token")
-  );
-
-  useEffect(() => {
-    const checkLoginStatus = () => {
-      setIsLoggedIn(!!localStorage.getItem("token"));
-    };
-
-    // Check when the page becomes active again
-    window.addEventListener("focus", checkLoginStatus);
-
-    // Check when storage changes
-    window.addEventListener("storage", checkLoginStatus);
-
-    return () => {
-      window.removeEventListener("focus", checkLoginStatus);
-      window.removeEventListener("storage", checkLoginStatus);
-    };
-  }, []);
+  const { isLoggedIn, logout } = useAuth();
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-
-    setIsLoggedIn(false);
-
+    logout();
     navigate("/login");
   };
 
