@@ -1,11 +1,17 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { useCart } from "../../context/CartContext";
 import "./Navbar.css";
 
 function Navbar() {
   const navigate = useNavigate();
 
   const { isLoggedIn, logout } = useAuth();
+  const { cartItems } = useCart();
+  const cartCount = cartItems.reduce(
+  (total, item) => total + item.quantity,
+  0
+);
 
   const handleLogout = () => {
     logout();
@@ -21,7 +27,9 @@ function Navbar() {
       <div className="navbar-links">
         <Link to="/">Home</Link>
         <Link to="/menu">Menu</Link>
-        <Link to="/cart">Cart 🛒</Link>
+        <Link to="/cart">
+  Cart 🛒 {cartCount > 0 && `(${cartCount})`}
+  </Link>
 
         {isLoggedIn ? (
           <>
