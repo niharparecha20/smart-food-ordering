@@ -14,6 +14,10 @@ function Cart() {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+  const totalItems = cartItems.reduce(
+  (sum, item) => sum + item.quantity,
+  0
+);
 
   if (cartItems.length === 0) {
     return (
@@ -92,7 +96,7 @@ function Cart() {
 
           <div className="summary-row">
             <span>Items</span>
-            <span>{cartItems.length}</span>
+            <span>{totalItems}</span>
           </div>
 
           <div className="summary-row">
@@ -112,9 +116,12 @@ function Cart() {
             <span>₹{total}</span>
           </div>
 
-          <button className="checkout-btn">
-            Proceed to Checkout
-          </button>
+          <button
+  className="checkout-btn"
+  onClick={() => window.location.href = "/checkout"}
+>
+  Proceed to Checkout
+</button>
         </div>
       </div>
     </div>
