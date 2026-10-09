@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import Checkout from "../pages/Checkout";
 
 import Home from "../pages/Home";
 import Menu from "../pages/Menu";
@@ -15,8 +16,10 @@ function AppRoutes() {
       <Route path="/" element={<Home />} />
       <Route path="/menu" element={<Menu />} />
       <Route path="/cart" element={<Cart />} />
+      <Route path="/checkout" element={<Checkout />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      
 
       <Route
         path="/profile"
