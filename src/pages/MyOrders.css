@@ -1,0 +1,163 @@
+.my-orders-page {
+  min-height: 80vh;
+  padding: 40px 20px;
+  background: #fff4ed;
+}
+
+.my-orders-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.my-orders-container > h1 {
+  margin-bottom: 8px;
+  color: #292929;
+  font-size: 32px;
+}
+
+.orders-subtitle {
+  margin-bottom: 30px;
+  color: #666;
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.order-card {
+  padding: 24px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+}
+
+.order-header,
+.order-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.order-header h2 {
+  margin: 0 0 8px;
+  color: #292929;
+  font-size: 20px;
+}
+
+.order-header p {
+  margin: 0;
+  color: #777;
+  font-size: 14px;
+}
+
+.order-status {
+  padding: 7px 12px;
+  border-radius: 20px;
+  background: #fff0d9;
+  color: #a85b00;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.order-status.confirmed,
+.order-status.delivered {
+  background: #e2f6e9;
+  color: #207544;
+}
+
+.order-status.cancelled {
+  background: #ffe5e5;
+  color: #b42318;
+}
+
+.order-items {
+  margin: 22px 0;
+  padding: 15px 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin: 12px 0;
+  color: #444;
+}
+
+.order-item strong,
+.order-footer strong {
+  color: #292929;
+}
+
+.order-footer {
+  color: #666;
+}
+
+.order-delivery {
+  margin: 18px 0 0;
+  color: #666;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.orders-message,
+.no-orders {
+  max-width: 700px;
+  margin: 60px auto;
+  padding: 35px 20px;
+  text-align: center;
+  background: #fff;
+  border-radius: 14px;
+}
+
+.orders-error {
+  color: #b42318;
+}
+
+.no-orders-icon {
+  font-size: 48px;
+}
+
+.no-orders h2 {
+  color: #292929;
+}
+
+.no-orders p {
+  color: #666;
+}
+
+.no-orders button {
+  margin-top: 12px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background: #ff6b35;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.no-orders button:hover {
+  background: #e85a2a;
+}
+
+@media (max-width: 600px) {
+  .my-orders-page {
+    padding: 25px 14px;
+  }
+
+  .order-card {
+    padding: 18px;
+  }
+
+  .order-header,
+  .order-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
