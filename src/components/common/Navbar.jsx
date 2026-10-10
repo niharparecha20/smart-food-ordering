@@ -6,8 +6,7 @@ import "./Navbar.css";
 function Navbar() {
   const navigate = useNavigate();
 
-  const { isLoggedIn, logout } = useAuth();
-  const { cartItems } = useCart();
+const { user, isLoggedIn, logout } = useAuth();  const { cartItems } = useCart();
   const cartCount = cartItems.reduce(
   (total, item) => total + item.quantity,
   0
@@ -32,17 +31,26 @@ function Navbar() {
   </Link>
 
         {isLoggedIn ? (
-          <>
-            <Link to="/profile">Profile</Link>
+  <>
+    <Link to="/profile">Profile</Link>
 
-            <button
-              onClick={handleLogout}
-              className="logout-btn"
-            >
-              Logout
-            </button>
-          </>
-        ) : (
+    <Link to="/my-orders">My Orders</Link>
+    {user?.role === "admin" && (
+  <>
+    <Link to="/admin/dashboard">Dashboard</Link>
+    <Link to="/admin/orders">Manage Orders</Link>
+    <Link to="/admin/food">Manage Food</Link>
+  </>
+)}
+
+    <button
+      onClick={handleLogout}
+      className="logout-btn"
+    >
+      Logout
+    </button>
+  </>
+) : (
           <>
             <Link to="/login">Login</Link>
 
