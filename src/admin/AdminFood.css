@@ -1,0 +1,199 @@
+
+.admin-food-page {
+  min-height: 100vh;
+  padding: 32px;
+  background: #fff4ed;
+  color: #292524;
+}
+
+.admin-food-header {
+  margin-bottom: 28px;
+}
+
+.admin-food-header h1 {
+  margin: 0 0 8px;
+  font-size: 30px;
+  color: #292524;
+}
+
+.admin-food-header p {
+  margin: 0;
+  color: #78716c;
+}
+
+.admin-food-form,
+.admin-food-list {
+  background: #ffffff;
+  padding: 24px;
+  margin-bottom: 28px;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(41, 37, 36, 0.06);
+}
+
+.admin-food-form h2,
+.admin-food-list h2 {
+  margin: 0 0 20px;
+  font-size: 21px;
+}
+
+.admin-food-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.admin-food-form-grid input,
+.admin-food-form-grid textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #e7d8cf;
+  border-radius: 8px;
+  background: #fffdfb;
+  color: #292524;
+  font: inherit;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.admin-food-form-grid input:focus,
+.admin-food-form-grid textarea:focus {
+  border-color: #ff6b35;
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.12);
+}
+
+.admin-food-form-grid textarea {
+  grid-column: 1 / -1;
+  resize: vertical;
+}
+
+.admin-food-form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.admin-food-form-actions button,
+.admin-food-card-actions button {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  background: #ff6b35;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.admin-food-form-actions button:hover,
+.admin-food-card-actions button:hover {
+  background: #e95825;
+}
+
+.admin-food-form-actions .cancel-btn {
+  background: #78716c;
+}
+
+.admin-food-form-actions .cancel-btn:hover {
+  background: #57534e;
+}
+
+.admin-food-error {
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.admin-food-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.admin-food-card {
+  overflow: hidden;
+  border: 1px solid #f0e4dd;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.admin-food-image,
+.admin-food-image-placeholder {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+}
+
+.admin-food-image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f7e9df;
+  color: #78716c;
+}
+
+.admin-food-card-content {
+  padding: 16px;
+}
+
+.admin-food-card-content h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.admin-food-card-content p {
+  margin: 8px 0;
+  color: #78716c;
+  overflow-wrap: anywhere;
+}
+
+.admin-food-card-content strong {
+  display: block;
+  margin-top: 12px;
+  color: #e95825;
+  font-size: 18px;
+}
+
+.admin-food-category {
+  display: inline-block;
+  padding: 4px 9px;
+  border-radius: 20px;
+  background: #fff0e6;
+  color: #c2410c !important;
+  font-size: 13px;
+}
+
+.admin-food-card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.admin-food-card-actions .delete-btn {
+  background: #dc2626;
+}
+
+.admin-food-card-actions .delete-btn:hover {
+  background: #b91c1c;
+}
+
+@media (max-width: 600px) {
+  .admin-food-page {
+    padding: 18px;
+  }
+
+  .admin-food-form,
+  .admin-food-list {
+    padding: 18px;
+  }
+
+  .admin-food-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-food-form-grid textarea {
+    grid-column: auto;
+  }
+}
