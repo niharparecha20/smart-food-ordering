@@ -16,15 +16,54 @@ function Checkout() {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+const [loading, setLoading] = useState(false);
+const [error, setError] = useState("");
 
-  const handlePlaceOrder = (e) => {
-    e.preventDefault();
+const handlePlaceOrder = async (e) => {
+  e.preventDefault();
+
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    navigate("/login");
+    return;
+  }
+
+  setError("");
+  setLoading(true);
+
+  try {
+    const response = await fetch("http://localhost:5000/api/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        customerName: name.trim(),
+        phone,
+        address: address.trim(),
+        paymentMethod,
+        items: cartItems,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      setError(data.message || "Unable to place order.");
+      return;
+    }
 
     alert("Order placed successfully! 🎉");
-
     navigate("/");
-  };
-
+  } catch (error) {
+    console.error("Order error:", error);
+    setError("Unable to connect to the server. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
   if (cartItems.length === 0) {
     return (
       <div className="checkout-empty">
@@ -99,9 +138,15 @@ function Checkout() {
               </select>
             </div>
 
-            <button type="submit" className="place-order-btn">
-              Place Order
-            </button>
+            {error && <p className="checkout-error">{error}</p>}
+
+<button
+  type="submit"
+  className="place-order-btn"
+  disabled={loading}
+>
+  {loading ? "Placing Order..." : "Place Order"}
+</button>
           </form>
         </div>
 
