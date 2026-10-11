@@ -90,6 +90,37 @@ function AdminFood() {
     }
   };
 
+const handleAvailabilityToggle = async (food) => {
+  setError("");
+
+  try {
+    const response = await fetch(`${API_URL}/${food._id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify({
+        isAvailable: !food.isAvailable,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.message || "Unable to update food availability."
+      );
+    }
+
+    await fetchFoods();
+  } catch (err) {
+    setError(
+      err.message || "Unable to update food availability."
+    );
+  }
+};
+
   const handleEdit = (food) => {
     setEditingId(food._id);
     setForm({
@@ -229,9 +260,18 @@ function AdminFood() {
                   <p>{food.description || "No description available."}</p>
                   <strong>₹{Number(food.price).toFixed(2)}</strong>
                   <p>
-                    Status: {food.isAvailable ? "Available" : "Unavailable"}
-                  </p>
+  Status: {food.isAvailable ? "Available" : "Unavailable"}
+</p>
 
+<button
+  type="button"
+  className={food.isAvailable ? "availability-btn unavailable" : "availability-btn available"}
+  onClick={() =>
+    handleAvailabilityToggle(food)
+  }
+>
+  {food.isAvailable ? "Mark Unavailable" : "Mark Available"}
+</button>
                   <div className="admin-food-card-actions">
                     <button type="button" onClick={() => handleEdit(food)}>
                       Edit
