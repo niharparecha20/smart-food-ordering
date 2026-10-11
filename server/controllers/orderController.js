@@ -125,13 +125,16 @@ const getAllOrders = async (req, res) => {
 
 const updateOrderStatus = async (req, res) => {
   try {
-    const allowedStatuses = [
-      "Pending",
-      "Confirmed",
-      "Preparing",
-      "Delivered",
-      "Cancelled",
-    ];
+    
+const allowedStatuses = [
+  "Pending",
+  "Confirmed",
+  "Preparing",
+  "Ready",
+  "Delivered",
+  "Cancelled",
+];
+
 
     const { status } = req.body;
 
