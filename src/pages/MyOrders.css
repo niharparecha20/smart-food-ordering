@@ -161,3 +161,100 @@
     flex-direction: column;
   }
 }
+
+/* Customer order tracking */
+.order-tracking {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  gap: 8px;
+  margin: 28px 0;
+  padding: 0 4px;
+}
+
+.tracking-step {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  text-align: center;
+  color: #a8a29e;
+  font-size: 13px;
+  z-index: 1;
+}
+
+.tracking-step::before {
+  content: "";
+  position: absolute;
+  height: 3px;
+  background: #e7d8cf;
+  width: calc(100% - 30px);
+  left: calc(-50% + 15px);
+  top: 15px;
+  z-index: -1;
+}
+
+.tracking-step:first-child::before {
+  display: none;
+}
+
+.tracking-circle {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #e7d8cf;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #a8a29e;
+  font-weight: 700;
+  box-sizing: border-box;
+}
+
+.tracking-step.completed {
+  color: #c2410c;
+  font-weight: 600;
+}
+
+.tracking-step.completed .tracking-circle {
+  background: #ff6b35;
+  border-color: #ff6b35;
+  color: #ffffff;
+}
+
+.tracking-step.completed::before {
+  background: #ff6b35;
+}
+
+.tracking-cancelled {
+  margin: 20px 0;
+  padding: 14px;
+  border-radius: 8px;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  .order-tracking {
+    gap: 2px;
+  }
+
+  .tracking-step {
+    font-size: 11px;
+  }
+
+  .tracking-circle {
+    width: 28px;
+    height: 28px;
+  }
+
+  .tracking-step::before {
+    top: 13px;
+    width: calc(100% - 24px);
+    left: calc(-50% + 12px);
+  }
+}
