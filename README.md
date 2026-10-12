@@ -1,16 +1,81 @@
-# React + Vite
+# 🍽️ Smart Food Ordering System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack food ordering web application built with **React, Node.js, Express.js, and MongoDB**. The system allows customers to browse food items, manage their cart, place orders, and track order status. Administrators can manage food items, organize menu categories, and process customer orders.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Customer Features
+- User registration and login
+- Browse food items and view prices
+- Search and filter food items by category
+- Add items to the shopping cart and update quantities
+- Place food orders
+- View personal orders and track order status
+- Manage account details
 
-## React Compiler
+### Admin Features
+- Admin authentication and role-based access
+- Add, edit, and delete food items
+- Manage food availability
+- Change the display order of menu categories
+- View customer orders
+- Update order status
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Technology Stack
 
-## Expanding the ESLint configuration
+**Frontend**
+- React
+- Vite
+- JavaScript
+- CSS
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+**Backend**
+- Node.js
+- Express.js
+- REST API
+
+**Database and Authentication**
+- MongoDB Atlas
+- Mongoose
+- JSON Web Tokens (JWT)
+- bcryptjs
+
+### Start the backend
+
+From the `server` directory, run the development command configured in its `package.json`, for example:
+
+```bash
+npm run dev
+```
+
+### Start the frontend
+
+Open a second terminal at the project root:
+
+```bash
+npm run dev
+```
+
+Open the local frontend URL printed by Vite, usually:
+
+http://localhost:5173
+
+## 🔐 Security Notes
+
+- Keep environment variables and database credentials private.
+- Use a strong, unique JWT secret.
+- Do not commit `.env` files to GitHub.
+- Keep admin-only operations protected by backend authorization checks.
+- Use test accounts when demonstrating the application.
+
+## 🚀 Future Improvements
+
+- Online payment gateway integration
+- Order notifications
+- Food ratings and reviews
+- Deployment to a production hosting platform
+
+## 👨‍💻 Author
+**Nihar Parecha**
+
+Developed as a full-stack web development project to simplify online food ordering and restaurant menu management.
