@@ -1,3 +1,4 @@
+
 const mongoose = require("mongoose");
 
 const foodSchema = new mongoose.Schema(
@@ -24,6 +25,12 @@ const foodSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
+    },
+
+    categoryOrder: {
+      type: Number,
+      default: 999,
+      min: 0,
     },
 
     image: {
