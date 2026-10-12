@@ -3,8 +3,10 @@ const Food = require("../models/Food");
 // Get all food items
 const getFoods = async (req, res) => {
   try {
-    const foods = await Food.find().sort({ createdAt: -1 });
-
+const foods = await Food.find().sort({
+  categoryOrder: 1,
+  createdAt: -1,
+});
     res.status(200).json({ foods });
   } catch (error) {
     console.error("Get foods error:", error.message);
@@ -18,8 +20,16 @@ const getFoods = async (req, res) => {
 // Add a food item
 const createFood = async (req, res) => {
   try {
-    const { name, description, price, category, image } = req.body;
-
+const {
+  name,
+  description,
+  price,
+  category,
+  categoryOrder,
+  image,
+  isAvailable,
+} = req.body;
+req.body;
     if (
       !name?.trim() ||
       price === undefined ||
@@ -63,10 +73,40 @@ const createFood = async (req, res) => {
 // Update a food item
 const updateFood = async (req, res) => {
   try {
-    const { name, description, price, category, image, isAvailable } =
-      req.body;
+    const {
+      name,
+      description,
+      price,
+      category,
+      categoryOrder,
+      image,
+      isAvailable,
+    } = req.body;
 
-    const updates = {};
+    
+const updates = {};
+    if (categoryOrder !== undefined) {
+  const parsedOrder = Number(categoryOrder);
+
+  if (!Number.isInteger(parsedOrder) || parsedOrder < 0) {
+    return res.status(400).json({
+      message: "Category order must be a non-negative integer.",
+    });
+  }
+
+  updates.categoryOrder = parsedOrder;
+}
+    if (categoryOrder !== undefined) {
+  const parsedOrder = Number(categoryOrder);
+
+  if (!Number.isInteger(parsedOrder) || parsedOrder < 0) {
+    return res.status(400).json({
+      message: "Category order must be a non-negative integer.",
+    });
+  }
+
+  updates.categoryOrder = parsedOrder;
+}
 
     if (name !== undefined) updates.name = name;
     if (description !== undefined) updates.description = description;
