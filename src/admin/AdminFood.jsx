@@ -6,6 +6,7 @@ const API_URL = "http://localhost:5000/api/foods";
 
 function AdminFood() {
   const [foods, setFoods] = useState([]);
+  const [savingCategoryOrder, setSavingCategoryOrder] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [form, setForm] = useState({
@@ -18,25 +19,91 @@ function AdminFood() {
   const [editingId, setEditingId] = useState(null);
 
   const getToken = () => localStorage.getItem("token");
+  
+const fetchFoods = async () => {
+  try {
+    setError("");
+    const response = await fetch(API_URL);
+    const data = await response.json();
 
-  const fetchFoods = async () => {
-    try {
-      setError("");
-      const response = await fetch(API_URL);
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Failed to load food items.");
-      }
-
-      setFoods(data.foods || []);
-    } catch (err) {
-      setError(err.message || "Unable to connect to the server.");
-    } finally {
-      setLoading(false);
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to load food items.");
     }
-  };
 
+    setFoods(data.foods || []);
+  } catch (err) {
+    setError(err.message || "Unable to connect to the server.");
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+  const handleCategoryOrderChange = async (category, direction) => {
+  const categories = [
+    ...new Set(foods.map((food) => food.category).filter(Boolean)),
+  ].sort((a, b) => {
+    const orderA = Math.min(
+      ...foods.filter((food) => food.category === a)
+        .map((food) => food.categoryOrder ?? 999)
+    );
+    const orderB = Math.min(
+      ...foods.filter((food) => food.category === b)
+        .map((food) => food.categoryOrder ?? 999)
+    );
+
+    return orderA - orderB || a.localeCompare(b);
+  });
+
+  const currentIndex = categories.indexOf(category);
+  const newIndex = currentIndex + direction;
+
+  if (newIndex < 0 || newIndex >= categories.length) return;
+
+  [categories[currentIndex], categories[newIndex]] = [
+    categories[newIndex],
+    categories[currentIndex],
+  ];
+
+  setSavingCategoryOrder(true);
+  setError("");
+
+  try {
+    for (let index = 0; index < categories.length; index++) {
+      const categoryName = categories[index];
+      const categoryFoods = foods.filter(
+        (food) => food.category === categoryName
+      );
+
+      await Promise.all(
+        categoryFoods.map(async (food) => {
+          const response = await fetch(`${API_URL}/${food._id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${getToken()}`,
+            },
+            body: JSON.stringify({ categoryOrder: index + 1 }),
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(
+              data.message || "Unable to save category order."
+            );
+          }
+        })
+      );
+    }
+
+    await fetchFoods();
+  } catch (err) {
+    setError(err.message || "Unable to save category order.");
+  } finally {
+    setSavingCategoryOrder(false);
+  }
+}; 
   useEffect(() => {
     fetchFoods();
   }, []);
@@ -169,6 +236,57 @@ const handleAvailabilityToggle = async (food) => {
       </div>
 
       {error && <div className="admin-food-error">{error}</div>}
+      <section className="admin-category-order">
+  <h2>Manage Category Order</h2>
+  <p>Use the arrows to choose the order customers see in the menu.</p>
+
+  {[
+    ...new Set(foods.map((food) => food.category).filter(Boolean)),
+  ]
+    .sort((a, b) => {
+      const orderA = Math.min(
+        ...foods
+          .filter((food) => food.category === a)
+          .map((food) => food.categoryOrder ?? 999)
+      );
+      const orderB = Math.min(
+        ...foods
+          .filter((food) => food.category === b)
+          .map((food) => food.categoryOrder ?? 999)
+      );
+
+      return orderA - orderB || a.localeCompare(b);
+    })
+    .map((category, index, categories) => (
+      <div className="admin-category-order-row" key={category}>
+        <strong>
+          {index + 1}. {category}
+        </strong>
+
+        <div>
+          <button
+            type="button"
+            disabled={savingCategoryOrder || index === 0}
+            onClick={() => handleCategoryOrderChange(category, -1)}
+          >
+            ↑
+          </button>
+
+          <button
+            type="button"
+            disabled={
+              savingCategoryOrder || index === categories.length - 1
+            }
+            onClick={() => handleCategoryOrderChange(category, 1)}
+          >
+            ↓
+          </button>
+        </div>
+      </div>
+    ))}
+
+  {savingCategoryOrder && <p>Saving category order...</p>}
+</section>
 
       <form className="admin-food-form" onSubmit={handleSubmit}>
         <h2>{editingId ? "Edit Food Item" : "Add New Food"}</h2>
@@ -293,5 +411,4 @@ const handleAvailabilityToggle = async (food) => {
     </div>
   );
 }
-
 export default AdminFood;
