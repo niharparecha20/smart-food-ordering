@@ -197,3 +197,60 @@
     grid-column: auto;
   }
 }
+
+/* Admin Category Ordering */
+.admin-category-order {
+  background: #ffffff;
+  padding: 24px;
+  margin: 24px 0;
+  border-radius: 12px;
+  border: 1px solid #f3dfd4;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.admin-category-order h2 {
+  color: #292524;
+  margin-bottom: 8px;
+}
+
+.admin-category-order > p {
+  color: #78716c;
+  margin-bottom: 18px;
+}
+
+.admin-category-order-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  background: #fff7f2;
+  border: 1px solid #f3dfd4;
+  border-radius: 8px;
+}
+
+.admin-category-order-row strong {
+  color: #292524;
+  text-transform: capitalize;
+}
+
+.admin-category-order-row button {
+  background: #ff6b35;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 13px;
+  margin-left: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.admin-category-order-row button:hover:not(:disabled) {
+  background: #e95724;
+}
+
+.admin-category-order-row button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
