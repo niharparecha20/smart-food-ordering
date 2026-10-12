@@ -71,22 +71,95 @@
   margin-bottom: 35px;
 }
 
+
 .category-container {
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .category-card {
-  width: 180px;
-  padding: 25px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  position: relative;
+  height: 110px;
+  width: 100%;
+  padding: 0;
+  border: none;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.10);
   cursor: pointer;
-  transition: 0.3s;
+  text-align: center;
+  font-family: inherit;
 }
+
+.category-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  margin: 0;
+  transition: transform 0.3s ease;
+}
+
+.category-card::after {
+  content: "";
+  position: absolute;
+  inset: 45% 0 0;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(0, 0, 0, 0.8)
+  );
+}
+
+.category-card h3 {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  bottom: 16px;
+  margin: 0;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.category-card:hover .category-image {
+  transform: scale(1.05);
+}
+
+@media (max-width: 900px) {
+  .category-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 650px;
+  }
+
+  .category-card {
+    height: 220px;
+  }
+}
+
+@media (max-width: 500px) {
+  .category-container {
+    gap: 14px;
+  }
+
+  .category-card {
+    height: 170px;
+  }
+
+  .category-card h3 {
+    font-size: 19px;
+    bottom: 12px;
+  }
+}
+
 
 .category-card:hover {
   transform: translateY(-5px);
@@ -98,4 +171,138 @@
 
 .category-card h3 {
   margin-top: 12px;
+}
+
+
+/* Popular Categories */
+.categories {
+  padding: 60px 5%;
+  background: #f7f8fa;
+}
+
+.categories h2 {
+  text-align: center;
+  font-size: 38px;
+  margin-bottom: 40px;
+  color: #292524;
+}
+
+.category-container {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.category-card {
+  position: relative;
+  height: 360px;
+  padding: 0;
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  text-align: center;
+  font-family: inherit;
+}
+
+.category-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  margin: 0;
+  border-radius: 0;
+  transition: transform 0.3s ease;
+}
+
+.category-card::after {
+  content: "";
+  position: absolute;
+  inset: 45% 0 0;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(0, 0, 0, 0.85)
+  );
+}
+
+.category-card h3 {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  bottom: 22px;
+  margin: 0;
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.category-emoji {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+  margin: 0;
+}
+
+.category-card:hover .category-image {
+  transform: scale(1.06);
+}
+
+.category-card:focus-visible {
+  outline: 3px solid #ff6b35;
+  outline-offset: 4px;
+}
+
+@media (max-width: 900px) {
+  .category-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .category-card {
+    height: 300px;
+  }
+}
+
+@media (max-width: 500px) {
+  .categories {
+    padding: 40px 5%;
+  }
+
+  .categories h2 {
+    font-size: 28px;
+  }
+
+  .category-container {
+    gap: 14px;
+  }
+
+  .category-card {
+    height: 220px;
+  }
+
+  .category-card h3 {
+    font-size: 21px;
+    bottom: 16px;
+  }
+}
+
+.category-card:hover .category-image {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+.category-card:focus-visible {
+  outline: 3px solid #ff6b35;
+  outline-offset: 4px;
 }

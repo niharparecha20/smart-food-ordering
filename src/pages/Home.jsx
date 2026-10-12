@@ -1,10 +1,47 @@
-import { Link } from "react-router-dom";
+
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./Home.css";
 
 function Home() {
+  const [foods, setFoods] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchFoods = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/foods");
+        const data = await response.json();
+
+        if (response.ok) {
+          setFoods(data.foods || []);
+        }
+      } catch (error) {
+        console.error("Unable to load category images:", error);
+      }
+    };
+
+    fetchFoods();
+  }, []);
+
+  const categories = [
+    { name: "Pizza", foodName: "Margherita Pizza" },
+    { name: "Burger", foodName: "Classic Burger" },
+    { name: "Noodles", foodName: "Veg Noodles" },
+    { name: "Indian", foodName: "Paneer Butter Masala" },
+  ];
+
+  const getFoodImage = (foodName) =>
+    foods.find(
+      (food) => food.name?.toLowerCase() === foodName.toLowerCase()
+    )?.image;
+
+  const openCategory = (category) => {
+    navigate(`/menu?category=${encodeURIComponent(category)}`);
+  };
+
   return (
     <div className="home">
-
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-content">
@@ -25,35 +62,45 @@ function Home() {
         </div>
       </section>
 
-      {/* Categories */}
+      {/* Popular Categories */}
       <section className="categories">
         <h2>Popular Categories</h2>
 
         <div className="category-container">
+          {categories.map((category) => {
+            const image = getFoodImage(category.foodName);
 
-          <div className="category-card">
-            <span>🍕</span>
-            <h3>Pizza</h3>
-          </div>
+            return (
+              <button
+                type="button"
+                className="category-card"
+                key={category.name}
+                onClick={() => openCategory(category.name)}
+              >
+                {image && /^https?:\/\//i.test(image) ? (
+                  <img
+                    src={image}
+                    alt={category.name}
+                    className="category-image"
+                  />
+                ) : (
+                  <span className="category-emoji">
+                    {category.name === "Pizza"
+                      ? "🍕"
+                      : category.name === "Burger"
+                      ? "🍔"
+                      : category.name === "Noodles"
+                      ? "🍜"
+                      : "🍛"}
+                  </span>
+                )}
 
-          <div className="category-card">
-            <span>🍔</span>
-            <h3>Burger</h3>
-          </div>
-
-          <div className="category-card">
-            <span>🍜</span>
-            <h3>Noodles</h3>
-          </div>
-
-          <div className="category-card">
-            <span>🍛</span>
-            <h3>Indian</h3>
-          </div>
-
+                <h3>{category.name}</h3>
+              </button>
+            );
+          })}
         </div>
       </section>
-
     </div>
   );
 }
